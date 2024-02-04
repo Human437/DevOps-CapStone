@@ -20,7 +20,8 @@ The API code exists in the `api` directory. You can run the API server locally:
 - Create a virtualenv by typing in the following command: `python -m venv .venv`
 - Install the required packages: `pip install -r requirements.txt`
 - Create a `.env` file, and add you Azure Storage Connection String
-- Also, change the storage account and container name in `main.py`
+- *Optional*: If you don't want to use a connection string, you can sign in to Azure in powershell with an account that has the role `Storage Blob Data Contributor` for the container you wish to work with
+- Change the storage account and container name in `main.py`
 - *Optional*: Uncomment lines 62,63, and 66 to enable local storage of generated QR codes. This may be helpful for local testing
 - Run the API server: `uvicorn main:app --reload`
 - Your API Server should be running on port `http://localhost:8000`

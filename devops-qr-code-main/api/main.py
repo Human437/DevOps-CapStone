@@ -32,8 +32,8 @@ storage_account_name = "devopsqrcodegenerator"
 container_name = "qr-codes"
 
 
-@app.post("/generate-qr/")
-async def generate_qr(url: str):
+@app.post("/generate-qr-code/")
+async def generate_qr_code(url: str):
     # Generate QR Code
     qr = qrcode.QRCode(
         version=1,
@@ -67,15 +67,31 @@ async def generate_qr(url: str):
 
     except Exception as ex:
         print('Failed to do stuff locally - Exception:')
-        print(ex)
+        print(
+            f"An exception of type {type(ex).__name__} occurred. Arguments:\n{ex.args[0]}")
 
+    # Authenticate with Azure
     try:
         connect_str = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
 
-        # Create the BlobServiceClient object
+        # Create the BlobServiceClient object using a connection string
         blob_service_client = BlobServiceClient.from_connection_string(
             connect_str)
+    except ValueError:
+        # Azure Connection String not defined, attempt to use managed identity
+        account_url = f"https://{storage_account_name}.blob.core.windows.net"
+        default_credential = DefaultAzureCredential()
 
+        # Create the BlobServiceClient object using a managed identity
+        blob_service_client = BlobServiceClient(
+            account_url, credential=default_credential)
+    except Exception as ex:
+        print('Failed to connect to Azure - Exception:')
+        print(
+            f"An exception of type {type(ex).__name__} occurred. Arguments:\n{ex.args[0]}")
+
+    # Write QR Code to Azure
+    try:
         # Create a blob client using the local file name as the name for the blob
         blob_client = blob_service_client.get_blob_client(
             container=container_name, blob=local_file_name)
@@ -91,4 +107,5 @@ async def generate_qr(url: str):
 
     except Exception as ex:
         print('Failed to write QR code to Azure - Exception:')
-        print(ex)
+        print(
+            f"An exception of type {type(ex).__name__} occurred. Arguments:\n{ex.args[0]}")
