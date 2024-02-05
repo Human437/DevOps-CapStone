@@ -5,8 +5,6 @@ from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 import os
 import uuid
 import qrcode
-import boto3
-import shutil
 from io import BytesIO
 
 # Loading Environment variable
