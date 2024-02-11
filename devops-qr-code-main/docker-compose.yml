@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  python-api:
+    image: python-api
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    init: true
+    ports:
+      - 8000:8000
+  nextjs-frontend:
+    image: nextjs-frontend
+    build:
+      context: ./front-end-nextjs/
+      dockerfile: ./Dockerfile
+    init: true
+    depends_on:
+      - python-api
+    ports:
+      - 3000:3000
