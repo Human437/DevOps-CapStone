@@ -44,9 +44,11 @@ The front-end code exits in the `front-end-nextjs` directory. You can run the fr
 
 The goal is to get hands-on with DevOps practices like Containerization, CICD and monitoring.
 
-## Original Author
+## Original Author & License
 
 [Rishab Kumar](https://github.com/rishabkumar7)
+
+[Rishab Kumar MIT](./Rishab-Kumar-LICENSE)
 
 ## Changes Made
 
