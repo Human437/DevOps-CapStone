@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-front-end-pod
+  labels:
+    name: node-front-end-pod
+    app: qr-code-generator
+spec:
+  containers:
+    - name: node-front-end
+      image: ghcr.io/human437/node-front-end-docker-image:main
+      imagePullPolicy: Always
+      ports:
+        - containerPort: 3000
