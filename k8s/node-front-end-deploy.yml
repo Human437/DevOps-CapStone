@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-front-end-deploy
+  labels:
+    name: node-front-end-deploy
+    app: qr-code-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: node-front-end-pod
+      app: qr-code-generator
+  template:
+    metadata:
+      name: node-front-end-pod
+      labels:
+        name: node-front-end-pod
+        app: qr-code-generator
+    spec:
+      containers:
+        - name: node-front-end
+          image: ghcr.io/human437/node-front-end-docker-image:main
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
