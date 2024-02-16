@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-api-deploy
+  labels:
+    name: python-api-deploy
+    app: qr-code-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: python-api-pod
+      app: qr-code-generator
+  template:
+    metadata:
+      name: python-api-pod
+      labels:
+        name: python-api-pod
+        app: qr-code-generator
+    spec:
+      containers:
+        - name: python-api
+          image: ghcr.io/human437/python-api-docker-image:main
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: AZURE_STORAGE_CONNECTION_STRING
+              value: "DefaultEndpointsProtocol=https;AccountName=devopsqrcodegenerator;AccountKey=GHWJqUUdTHdBqnQo9b27OAuXXyf0E4VpDnKPnxPN8N9sxR3tBADbzDwptM65ER9BvPPwKcTzc1cQ+AStTelfxA==;EndpointSuffix=core.windows.net"

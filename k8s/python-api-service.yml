@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-api-service
+  labels:
+    name: python-api-service
+    app: qr-code-generator
+spec:
+  type: NodePort
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 30002
+  selector:
+    name: python-api-pod
+    app: qr-code-generator
