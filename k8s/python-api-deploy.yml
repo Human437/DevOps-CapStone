@@ -24,6 +24,3 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
-          env:
-            - name: AZURE_STORAGE_CONNECTION_STRING
-              value: "DefaultEndpointsProtocol=https;AccountName=devopsqrcodegenerator;AccountKey=GHWJqUUdTHdBqnQo9b27OAuXXyf0E4VpDnKPnxPN8N9sxR3tBADbzDwptM65ER9BvPPwKcTzc1cQ+AStTelfxA==;EndpointSuffix=core.windows.net"
